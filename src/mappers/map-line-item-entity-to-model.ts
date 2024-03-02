@@ -1,4 +1,4 @@
-import { Order } from "@shopify/shopify-api/rest/admin/2024-01/order";
+import { Order } from "@shopify/shopify-api/rest/admin/2023-04/order";
 
 import { LineItemModel } from "../models";
 

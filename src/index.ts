@@ -2,7 +2,7 @@ import "@shopify/shopify-api/adapters/node";
 import "dotenv/config";
 
 import { ApiVersion, shopifyApi } from "@shopify/shopify-api";
-import { restResources } from "@shopify/shopify-api/rest/admin/2024-01";
+import { restResources } from "@shopify/shopify-api/rest/admin/2023-04";
 
 import { mapOrderModelToRowModels } from "./mappers";
 import { OrdersService } from "./services/OrdersService";

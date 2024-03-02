@@ -1,5 +1,5 @@
 import { Session, Shopify } from "@shopify/shopify-api";
-import { RestResources } from "@shopify/shopify-api/rest/admin/2024-01";
+import { RestResources } from "@shopify/shopify-api/rest/admin/2023-04";
 
 import { mapOrderEntityToModel } from "../mappers";
 import { OrderModel } from "../models";
@@ -19,7 +19,7 @@ export class OrdersService {
 
     let pageInfo;
     do {
-      // https://shopify.dev/docs/api/admin-rest/2024-01/resources/order#get-orders?status=any
+      // https://shopify.dev/docs/api/admin-rest/2023-04/resources/order#get-orders?status=any
       const response = await this.rest.Order.all({
         ...pageInfo?.nextPage?.query,
         status: "any",
@@ -31,6 +31,6 @@ export class OrdersService {
       pageInfo = response.pageInfo;
     } while (pageInfo?.nextPage);
 
-    return results.map(mapOrderEntityToModel);
+    return results.map((order) => mapOrderEntityToModel(order));
   }
 }

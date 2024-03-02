@@ -1,9 +1,9 @@
-import { Order } from "@shopify/shopify-api/rest/admin/2023-04/order";
+import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
 
-import { AddressModel } from "../models";
+import { AddressModel } from '../models';
 
 export const mapAddressEntityToModel = (
-  address: Order["shipping_address"]
+  address: Order['shipping_address'],
 ): AddressModel => {
   const name = address?.name as string | null;
   const address1 = address?.address1 as string | null;
@@ -14,7 +14,7 @@ export const mapAddressEntityToModel = (
   const phone = address?.phone as string | null;
 
   if (!name || !address1 || !city || !province || !zip) {
-    throw new Error("Address is missing required fields");
+    throw new Error('Address is missing required fields');
   }
 
   return {

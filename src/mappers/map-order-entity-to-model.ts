@@ -1,13 +1,13 @@
-import { Order } from "@shopify/shopify-api/rest/admin/2023-04/order";
+import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
 
-import { OrderModel } from "../models";
+import { OrderModel } from '../models';
 
-import { mapAddressEntityToModel } from "./map-address-entity-to-model";
-import { mapLineItemEntityToModel } from "./map-line-item-entity-to-model";
+import { mapAddressEntityToModel } from './map-address-entity-to-model';
+import { mapLineItemEntityToModel } from './map-line-item-entity-to-model';
 
 const getAttribute = (
-  attributes: Order["note_attributes"],
-  name: string
+  attributes: Order['note_attributes'],
+  name: string,
 ): string | null =>
   (attributes?.find((attr) => attr.name === name)?.value ?? null) as
     | string
@@ -15,26 +15,26 @@ const getAttribute = (
 
 export const mapOrderEntityToModel = (order: Order): OrderModel => {
   if (!order.id) {
-    throw new Error("Order is missing id");
+    throw new Error('Order is missing id');
   }
 
   if (!order.name) {
-    throw new Error("Order is missing name");
+    throw new Error('Order is missing name');
   }
 
   if (!order.total_price) {
-    throw new Error("Order is missing total price");
+    throw new Error('Order is missing total price');
   }
 
   if (!order.created_at) {
-    throw new Error("Order is missing created at date");
+    throw new Error('Order is missing created at date');
   }
 
-  const den = getAttribute(order.note_attributes, "Scout Den");
-  const scout = getAttribute(order.note_attributes, "Scout Name");
+  const den = getAttribute(order.note_attributes, 'Scout Den');
+  const scout = getAttribute(order.note_attributes, 'Scout Name');
 
   if (!den || !scout) {
-    throw new Error("Order is missing required attributes");
+    throw new Error('Order is missing required attributes');
   }
 
   const billingAddress = mapAddressEntityToModel(order.billing_address);

@@ -1,5 +1,5 @@
-import { AddressModel } from "./address-model";
-import { LineItemModel } from "./line-item-model";
+import { AddressModel } from './address-model';
+import { LineItemModel } from './line-item-model';
 
 export type OrderModel = {
   id: number;

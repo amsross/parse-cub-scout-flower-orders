@@ -1,7 +1,7 @@
-import { OrderModel, RowModel } from "../models";
+import { OrderModel, RowModel } from '../models';
 
 export const mapOrderModelToRowModels = (order: OrderModel): RowModel[] => {
-  const {lineItems} = order;
+  const { lineItems } = order;
   const shippingAddress = {
     shippingName: order.shippingAddress.name,
     shippingAddress1: order.shippingAddress.address1,
@@ -13,18 +13,18 @@ export const mapOrderModelToRowModels = (order: OrderModel): RowModel[] => {
   };
 
   const orderBase = {
-    id: parseInt(order.name.replace("#", "")),
+    id: parseInt(order.name.replace('#', '')),
     date: order.date,
     den: order.den,
     scout: order.scout,
   };
 
   return lineItems.map((lineItem) => ({
-      ...orderBase,
-      ...shippingAddress,
-      title: lineItem.title,
-      variantTitle: lineItem.variantTitle,
-      price: lineItem.price,
-      quantity: lineItem.quantity,
-    }));
+    ...orderBase,
+    ...shippingAddress,
+    title: lineItem.title,
+    variantTitle: lineItem.variantTitle,
+    price: lineItem.price,
+    quantity: lineItem.quantity,
+  }));
 };

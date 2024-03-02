@@ -1,0 +1,16 @@
+/* Visit https://aka.ms/tsconfig to read more about this file */
+{
+  "ts-node": {
+    "files": true
+  },
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"]
+}

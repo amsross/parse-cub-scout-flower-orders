@@ -7,11 +7,15 @@ import { LineItemEntity } from './line-item-entity';
 import { lineItemEntityFactory } from './line-item-entity.factory';
 import { OrderEntity } from './order-entity';
 
+const dens = ['Tiger', 'Wolf', 'Bear', 'Webelos'];
+
 export const orderEntityFactory = Factory.Sync.makeFactory<OrderEntity>({
   id: Factory.each(() =>
     faker.number.int({ min: 1000000000000, max: 9999999999999 })
   ) as unknown as number,
-  name: Factory.each((i) => `#${i}`) as unknown as string,
+  name: Factory.each(
+    () => `${faker.number.int({ min: 1000, max: 1300 })}`
+  ) as unknown as string,
   total_price: null,
   created_at: Factory.each(() =>
     faker.date.recent().toISOString()
@@ -19,8 +23,8 @@ export const orderEntityFactory = Factory.Sync.makeFactory<OrderEntity>({
   line_items: Factory.each(() =>
     lineItemEntityFactory.buildList(faker.number.int({ min: 1, max: 4 }))
   ) as unknown as LineItemEntity[],
-  note_attributes: Factory.each(() => [
-    { name: 'Scout Den', value: faker.word.noun() },
+  note_attributes: Factory.each((i) => [
+    { name: 'Scout Den', value: dens[i % dens.length] },
     { name: 'Scout Name', value: faker.person.fullName() },
   ]) as unknown as Record<string, string>[],
   billing_address: Factory.each(() =>

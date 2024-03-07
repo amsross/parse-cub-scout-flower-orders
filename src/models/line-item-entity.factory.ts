@@ -3,12 +3,19 @@ import * as Factory from 'factory.ts';
 
 import { LineItemEntity } from './line-item-entity';
 
+const products = ['Bell Peppers', 'Coleus'];
+const variants = ['4.5"', 'Jr. Rose', 'Jr. Lime Vine'];
+
 export const lineItemEntityFactory = Factory.Sync.makeFactory<LineItemEntity>({
-  id: Factory.each((i) => i) as unknown as number,
+  id: Factory.each(() =>
+    faker.number.int({ min: 1000000000000, max: 9999999999999 })
+  ) as unknown as number,
   name: '',
-  title: Factory.each(() => faker.commerce.productName()) as unknown as string,
-  variant_title: Factory.each(() =>
-    faker.commerce.productAdjective()
+  title: Factory.each(
+    () => products[faker.number.int(products.length - 1)]
+  ) as unknown as string,
+  variant_title: Factory.each(
+    () => variants[faker.number.int(variants.length - 1)]
   ) as unknown as string,
   price: Factory.each(() =>
     faker.commerce.price({ min: 5, max: 23 }).toString()

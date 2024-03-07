@@ -5,7 +5,7 @@ import { ApiVersion, shopifyApi } from '@shopify/shopify-api';
 import { restResources } from '@shopify/shopify-api/rest/admin/2023-04';
 
 import { mapOrderModelToRowModels } from './mappers';
-import { OrdersService } from './services/OrdersService';
+import { OrdersService } from './services/orders-service';
 
 const port = process.env.port ?? 3000;
 const apiKey = process.env.API_KEY;
@@ -35,5 +35,5 @@ const shopify = shopifyApi({
   const orders = await ordersService.getAll();
   const rows = orders.flatMap(mapOrderModelToRowModels);
 
-  console.dir(rows, { depth: 0 });
+  console.table(rows);
 })();

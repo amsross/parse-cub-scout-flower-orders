@@ -5,7 +5,13 @@
   },
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build",
     "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2015",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

@@ -1,8 +1,10 @@
 import { Session, Shopify } from '@shopify/shopify-api';
 import { RestResources } from '@shopify/shopify-api/rest/admin/2023-04';
+import { FindAllResponse } from '@shopify/shopify-api/rest/base';
 
 import { mapOrderEntityToModel } from '../mappers';
 import { OrderModel } from '../models';
+import { OrderEntity } from '../models/order-entity';
 
 export class OrdersService {
   private session: Session;
@@ -20,11 +22,11 @@ export class OrdersService {
     let pageInfo;
     do {
       // https://shopify.dev/docs/api/admin-rest/2023-04/resources/order#get-orders?status=any
-      const response = await this.rest.Order.all({
+      const response = (await this.rest.Order.all({
         ...pageInfo?.nextPage?.query,
         status: 'any',
         session: this.session,
-      });
+      })) as unknown as FindAllResponse<OrderEntity>;
 
       results.push(...response.data);
 

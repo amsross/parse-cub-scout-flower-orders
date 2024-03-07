@@ -15,12 +15,14 @@
     "dotenv": "16.4.5"
   },
   "devDependencies": {
+    "@faker-js/faker": "8.4.1",
     "@swc/core": "1.4.2",
     "@tsconfig/node20": "20.1.2",
     "@typescript-eslint/parser": "7.1.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.29.1",
+    "factory.ts": "1.4.1",
     "prettier": "3.2.5",
     "ts-node": "10.9.2",
     "typescript": "5.1.6",

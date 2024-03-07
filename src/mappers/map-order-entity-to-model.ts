@@ -1,19 +1,18 @@
-import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
-
 import { OrderModel } from '../models';
+import { OrderEntity } from '../models/order-entity';
 
 import { mapAddressEntityToModel } from './map-address-entity-to-model';
 import { mapLineItemEntityToModel } from './map-line-item-entity-to-model';
 
 const getAttribute = (
-  attributes: Order['note_attributes'],
-  name: string,
+  attributes: OrderEntity['note_attributes'],
+  name: string
 ): string | null =>
   (attributes?.find((attr) => attr.name === name)?.value ?? null) as
     | string
     | null;
 
-export const mapOrderEntityToModel = (order: Order): OrderModel => {
+export const mapOrderEntityToModel = (order: OrderEntity): OrderModel => {
   if (!order.id) {
     throw new Error('Order is missing id');
   }

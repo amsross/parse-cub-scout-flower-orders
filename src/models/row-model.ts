@@ -4,10 +4,11 @@ export type RowModel = {
   scout: string;
   den: string;
 
+  product: string;
+  variant: string | null;
   price: number;
   quantity: number;
-  title: string;
-  variantTitle: string | null;
+  total: number;
 
   shippingName: string;
   shippingAddress1: string;

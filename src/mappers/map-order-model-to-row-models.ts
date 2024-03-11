@@ -22,9 +22,10 @@ export const mapOrderModelToRowModels = (order: OrderModel): RowModel[] => {
   return lineItems.map((lineItem) => ({
     ...orderBase,
     ...shippingAddress,
-    title: lineItem.title,
-    variantTitle: lineItem.variantTitle,
+    product: lineItem.title,
+    variant: lineItem.variantTitle,
     price: lineItem.price,
     quantity: lineItem.quantity,
+    total: lineItem.price * lineItem.quantity,
   }));
 };

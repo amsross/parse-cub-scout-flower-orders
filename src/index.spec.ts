@@ -1,6 +1,7 @@
 import { Session, Shopify } from '@shopify/shopify-api';
 
-import { OrderModel } from './models';
+import { mapOrderModelToRowModels } from './mappers';
+import { LineItemModel, OrderModel } from './models';
 import { orderModelFactory } from './models/order-model.factory';
 import { OrdersService } from './services/orders-service';
 
@@ -24,7 +25,15 @@ describe('index', () => {
     });
 
     it('should call the service', async () => {
-      await expect(service.getAll()).resolves.toEqual(data);
+      const orders = await service.getAll();
+      const rows = orders.flatMap(mapOrderModelToRowModels);
+
+      const allLineItems = orders.reduce(
+        (allLineItems, { lineItems }) => allLineItems.concat(lineItems),
+        [] as LineItemModel[]
+      );
+
+      expect(rows.length).toEqual(allLineItems.length);
     });
 
     it.todo('should group all line items by name/variant');

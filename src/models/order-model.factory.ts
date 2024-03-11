@@ -8,6 +8,19 @@ import { lineItemModelFactory } from './line-item-model.factory';
 import { OrderModel } from './order-model';
 
 const dens = ['Tiger', 'Wolf', 'Bear', 'Webelos'];
+const scoutsByDen = dens.reduce(
+  (acc, den) => {
+    const scouts = Array.from({ length: 10 }).map(() => {
+      const firstName = faker.person.firstName('male');
+      const lastName = faker.person.lastName('male');
+
+      return `${firstName} ${lastName}`;
+    });
+
+    return { ...acc, [den]: scouts };
+  },
+  {} as Record<string, string[]>
+);
 
 export const orderModelFactory = Factory.Sync.makeFactory<OrderModel>({
   id: Factory.each(() =>
@@ -20,9 +33,7 @@ export const orderModelFactory = Factory.Sync.makeFactory<OrderModel>({
     faker.date.recent().toISOString()
   ) as unknown as string,
   total: 0,
-  scout: Factory.each(
-    () => `${faker.person.firstName('male')} ${faker.person.lastName('male')}`
-  ) as unknown as string,
+  scout: null as unknown as string,
   den: Factory.each((i) => dens[i % dens.length]) as unknown as string,
   billingAddress: Factory.each(() =>
     addressModelFactory.build()
@@ -32,6 +43,11 @@ export const orderModelFactory = Factory.Sync.makeFactory<OrderModel>({
     lineItemModelFactory.buildList(3)
   ) as unknown as LineItemModel[],
 } as OrderModel)
+  .withDerivation('scout', (order) => {
+    const scouts = scoutsByDen[order.den];
+
+    return scouts[faker.number.int(scouts.length - 1)];
+  })
   .withDerivation('shippingAddress', (order) => order.billingAddress)
   .withDerivation('total', (order) =>
     order.lineItems.reduce(

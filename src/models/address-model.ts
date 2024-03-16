@@ -1,9 +1,9 @@
 export type AddressModel = {
-  name: string;
-  address1: string;
+  name: string | null;
+  address1: string | null;
   address2: string | null;
-  city: string;
-  zip: string;
-  province: string;
+  city: string | null;
+  zip: string | null;
+  province: string | null;
   phone: string | null;
 };

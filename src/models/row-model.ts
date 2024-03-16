@@ -10,11 +10,11 @@ export type RowModel = {
   quantity: number;
   total: number;
 
-  shippingName: string;
-  shippingAddress1: string;
+  shippingName: string | null;
+  shippingAddress1: string | null;
   shippingAddress2: string | null;
-  shippingCity: string;
-  shippingZip: string;
-  shippingProvince: string;
+  shippingCity: string | null;
+  shippingZip: string | null;
+  shippingProvince: string | null;
   shippingPhone: string | null;
 };

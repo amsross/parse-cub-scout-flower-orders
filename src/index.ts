@@ -1,7 +1,7 @@
 import '@shopify/shopify-api/adapters/node';
 import 'dotenv/config';
 
-import { ApiVersion, shopifyApi } from '@shopify/shopify-api';
+import { ApiVersion, LogSeverity, shopifyApi } from '@shopify/shopify-api';
 import { restResources } from '@shopify/shopify-api/rest/admin/2023-04';
 
 import { mapOrderModelToRowModels } from './mappers';
@@ -17,6 +17,7 @@ if (!apiKey || !apiSecretKey || !adminApiAccessToken) {
 }
 
 const shopify = shopifyApi({
+  logger: { level: LogSeverity.Warning },
   apiSecretKey,
   apiKey,
   adminApiAccessToken,

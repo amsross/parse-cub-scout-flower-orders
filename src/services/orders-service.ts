@@ -1,4 +1,3 @@
-import { Session } from '@shopify/shopify-api';
 import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
 
 import { mapOrderEntityToModel } from '../mappers';
@@ -12,11 +11,10 @@ export class OrdersService extends ShopifyBaseService {
     // https://shopify.dev/docs/api/admin-rest/2023-04/resources/order#get-orders?status=any
     const results = (await this.getAllInternal<
       Order,
-      { session: Session; status: string; fulfillment_status: string }
+      { status: string; fulfillment_status: string }
     >(this.rest.Order.all.bind(this.rest.Order), {
       status: 'open',
       fulfillment_status: 'unfulfilled',
-      session: this.session,
     })) as unknown as OrderEntity[];
 
     return results.map(mapOrderEntityToModel);

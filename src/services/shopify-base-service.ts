@@ -13,7 +13,9 @@ export class ShopifyBaseService {
   }
 
   protected async getAllInternal<Entity, Params>(
-    method: (params: Params) => Promise<FindAllResponse<Entity>>,
+    method: (
+      params: (Params & { session: Session }) | { session: Session }
+    ) => Promise<FindAllResponse<Entity>>,
     params: Params
   ): Promise<Entity[]> {
     const results = [];
@@ -21,8 +23,8 @@ export class ShopifyBaseService {
     let pageInfo;
     do {
       const response = (await method({
-        ...(pageInfo?.nextPage?.query ?? {}),
-        ...params,
+        session: this.session,
+        ...(pageInfo?.nextPage?.query ?? params),
       })) as FindAllResponse<Entity>;
 
       results.push(...response.data);

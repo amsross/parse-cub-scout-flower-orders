@@ -1,6 +1,7 @@
 import '@shopify/shopify-api/adapters/node';
 import 'dotenv/config';
 
+import { Parser } from '@json2csv/plainjs';
 import { ApiVersion, LogSeverity, shopifyApi } from '@shopify/shopify-api';
 import { restResources } from '@shopify/shopify-api/rest/admin/2023-04';
 
@@ -36,5 +37,8 @@ const shopify = shopifyApi({
   const orders = await ordersService.getAll();
   const rows = orders.flatMap(mapOrderModelToRowModels);
 
-  console.table(rows);
+  const parser = new Parser();
+
+  const csv = parser.parse(rows);
+  console.log(csv);
 })();

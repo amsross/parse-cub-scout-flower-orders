@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@json2csv/plainjs": "7.0.6",
     "@shopify/shopify-api": "9.4.1",
     "dotenv": "16.4.5"
   },

@@ -18,23 +18,19 @@ export const mapOrderEntityToModel = (order: OrderEntity): OrderModel => {
   }
 
   if (!order.name) {
-    throw new Error('Order is missing name');
+    throw new Error(`Order is missing name - ${order.id}`);
   }
 
   if (!order.total_price) {
-    throw new Error('Order is missing total price');
+    throw new Error(`Order is missing total price - ${order.id}`);
   }
 
   if (!order.created_at) {
-    throw new Error('Order is missing created at date');
+    throw new Error(`Order is missing created at date - ${order.id}`);
   }
 
-  const den = getAttribute(order.note_attributes, 'Scout Den');
-  const scout = getAttribute(order.note_attributes, 'Scout Name');
-
-  if (!den || !scout) {
-    throw new Error('Order is missing required attributes');
-  }
+  const den = getAttribute(order.note_attributes, 'Scout Den') ?? 'Unknown';
+  const scout = getAttribute(order.note_attributes, 'Scout Name') ?? 'Unknown';
 
   const billingAddress = mapAddressEntityToModel(order.billing_address);
   const shippingAddress = mapAddressEntityToModel(order.shipping_address);

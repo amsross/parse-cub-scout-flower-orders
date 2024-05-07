@@ -38,11 +38,11 @@ export const mapOrderEntityToModel = (order: OrderEntity): OrderModel => {
 
   return {
     id: order.id,
-    name: order.name,
+    name: order.name.trim(),
     date: order.created_at,
     total: parseFloat(order.total_price),
-    scout,
-    den,
+    scout: scout.trim(),
+    den: den.trim(),
     billingAddress,
     shippingAddress,
     lineItems,

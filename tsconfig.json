@@ -7,9 +7,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "build",
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "target": "es2015",
+    "moduleResolution": "bundler",
+    "module": "es2020",
+    "target": "es2020",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,

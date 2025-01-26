@@ -1,9 +1,11 @@
-import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
+import { RestResources } from '@shopify/shopify-api/rest/admin/2024-10';
+
+type Order = RestResources['Order']['prototype'];
 
 import { LineItemModel } from '../models';
 
 export const mapLineItemEntityToModel = (
-  lineItem: Exclude<Order['line_items'], null>['0'],
+  lineItem: Exclude<Order['line_items'], null>['0']
 ): LineItemModel => {
   const id = lineItem.id as number;
   const title = lineItem.title as string;

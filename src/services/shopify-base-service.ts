@@ -1,6 +1,14 @@
 import { Session, Shopify } from '@shopify/shopify-api';
-import { RestResources } from '@shopify/shopify-api/rest/admin/2023-04';
-import { FindAllResponse } from '@shopify/shopify-api/rest/base';
+import { RestResources } from '@shopify/shopify-api/rest/admin/2024-10';
+
+interface Response<T> {
+  data: T[];
+  pageInfo?: {
+    nextPage?: {
+      query: Record<string, unknown>;
+    };
+  };
+}
 
 export class ShopifyBaseService {
   protected session: Session;
@@ -15,17 +23,17 @@ export class ShopifyBaseService {
   protected async getAllInternal<Entity, Params>(
     method: (
       params: (Params & { session: Session }) | { session: Session }
-    ) => Promise<FindAllResponse<Entity>>,
+    ) => Promise<Response<Entity>>,
     params: Params
   ): Promise<Entity[]> {
     const results = [];
-
     let pageInfo;
+
     do {
       const response = (await method({
         session: this.session,
         ...(pageInfo?.nextPage?.query ?? params),
-      })) as FindAllResponse<Entity>;
+      })) as Response<Entity>;
 
       results.push(...response.data);
 

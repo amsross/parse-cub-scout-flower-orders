@@ -1,13 +1,15 @@
-import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
+import { RestResources } from '@shopify/shopify-api/rest/admin/2024-10';
 
-import { AddressEntity } from './address-entity';
-import { LineItemEntity } from './line-item-entity';
+type Order = RestResources['Order']['prototype'];
 
 export type OrderEntity = Pick<
   Order,
-  'id' | 'name' | 'total_price' | 'created_at' | 'note_attributes'
-> & {
-  line_items: LineItemEntity[];
-  shipping_address: AddressEntity;
-  billing_address: AddressEntity;
-};
+  | 'id'
+  | 'name'
+  | 'total_price'
+  | 'created_at'
+  | 'note_attributes'
+  | 'line_items'
+  | 'billing_address'
+  | 'shipping_address'
+>;

@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 import { Parser } from '@json2csv/plainjs';
 import { ApiVersion, LogSeverity, shopifyApi } from '@shopify/shopify-api';
-import { restResources } from '@shopify/shopify-api/rest/admin/2023-04';
+import { restResources } from '@shopify/shopify-api/rest/admin/2024-10';
 
 import { mapOrderModelToRowModels } from './mappers';
 import { ExportedOrderService } from './services/exported-order-service';
@@ -26,7 +26,7 @@ const shopify = shopifyApi({
   adminApiAccessToken,
   scopes: ['read_orders'],
   hostName: `localhost:${port}`,
-  apiVersion: ApiVersion.April23,
+  apiVersion: ApiVersion.October24,
   isCustomStoreApp: true,
   isEmbeddedApp: false,
   restResources,

@@ -34,10 +34,11 @@ export const orderEntityFactory = Factory.Sync.makeFactory<OrderEntity>({
 } as OrderEntity)
   .withDerivation('shipping_address', (order) => order.billing_address)
   .withDerivation('total_price', (order) =>
-    order.line_items
+    (order.line_items ?? [])
       .reduce(
         (total, lineItem) =>
-          total + parseInt(lineItem.price) * lineItem.quantity,
+          total +
+          parseInt(lineItem.price as string) * (lineItem.quantity as number),
         0
       )
       .toString()

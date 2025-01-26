@@ -4,18 +4,21 @@ import {
   Session,
   Shopify,
 } from '@shopify/shopify-api';
-import { restResources } from '@shopify/shopify-api/rest/admin/2023-04';
-import { Order } from '@shopify/shopify-api/rest/admin/2023-04/order';
-import { FindAllResponse } from '@shopify/shopify-api/rest/base';
+// import type { FindAllResponse } from '@shopify/shopify-api/rest/admin';
+import {
+  type RestResources,
+  restResources,
+} from '@shopify/shopify-api/rest/admin/2024-10';
 
+import { OrderEntity } from '../models';
 import { orderEntityFactory } from '../models/order-entity.factory';
 
 import { OrdersService } from './orders-service';
 
 jest.mock('@shopify/shopify-api');
-jest.mock('@shopify/shopify-api/rest/admin/2023-04');
+jest.mock('@shopify/shopify-api/rest/admin/2024-10');
 
-const mockOrder = jest.mocked(restResources.Order);
+const mockOrder = jest.mocked(restResources['Order']);
 
 describe('OrdersService', () => {
   afterEach(() => {
@@ -31,17 +34,18 @@ describe('OrdersService', () => {
     });
 
     it('should return orders', async () => {
-      const data = orderEntityFactory.buildList(4) as unknown as Order[];
+      const data = orderEntityFactory.buildList(4) as unknown as OrderEntity[];
+
       mockOrder.all
         .mockResolvedValueOnce({
           data: data.slice(0, 2),
           headers: {},
           pageInfo: { nextPage: {} as PageInfoParams } as PageInfo,
-        } as FindAllResponse<Order>)
+        } as unknown as ReturnType<RestResources['Order']['all']>)
         .mockResolvedValueOnce({
           data: data.slice(2, 4),
           headers: {},
-        } as FindAllResponse<Order>);
+        } as unknown as ReturnType<RestResources['Order']['all']>);
 
       await expect(service.getAll()).resolves.toEqual(
         data.map(({ id }) => expect.objectContaining({ id }))

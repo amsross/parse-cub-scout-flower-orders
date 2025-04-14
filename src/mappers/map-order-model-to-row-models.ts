@@ -1,7 +1,7 @@
 import { OrderModel, RowModel } from '../models';
 
 export const mapOrderModelToRowModels = (order: OrderModel): RowModel[] => {
-  const { lineItems } = order;
+  const { paymentMethod, lineItems } = order;
   const shippingAddress = {
     shippingName: order.shippingAddress.name,
     shippingAddress1: order.shippingAddress.address1,
@@ -27,5 +27,6 @@ export const mapOrderModelToRowModels = (order: OrderModel): RowModel[] => {
     price: lineItem.price,
     quantity: lineItem.quantity,
     total: lineItem.price * lineItem.quantity,
+    paymentMethod: paymentMethod,
   }));
 };

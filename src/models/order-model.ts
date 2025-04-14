@@ -8,6 +8,7 @@ export type OrderModel = {
   total: number;
   scout: string;
   den: string;
+  paymentMethod: string;
   billingAddress: AddressModel;
   shippingAddress: AddressModel;
   lineItems: LineItemModel[];

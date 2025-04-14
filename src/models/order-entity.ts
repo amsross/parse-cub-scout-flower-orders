@@ -5,6 +5,7 @@ type Order = RestResources['Order']['prototype'];
 export type OrderEntity = Pick<
   Order,
   | 'id'
+  | 'order_number'
   | 'name'
   | 'total_price'
   | 'created_at'
@@ -12,4 +13,5 @@ export type OrderEntity = Pick<
   | 'line_items'
   | 'billing_address'
   | 'shipping_address'
+  | 'payment_gateway_names'
 >;

@@ -3,6 +3,7 @@ export type RowModel = {
   date: string;
   scout: string;
   den: string;
+  paymentMethod: string;
 
   product: string;
   variant: string | null;

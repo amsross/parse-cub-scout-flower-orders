@@ -6,7 +6,7 @@ import { mapLineItemEntityToModel } from './map-line-item-entity-to-model';
 
 const getAttribute = (
   attributes: OrderEntity['note_attributes'],
-  name: string
+  name: string,
 ): string | null =>
   (attributes?.find((attr) => attr.name === name)?.value ?? null) as
     | string
@@ -43,6 +43,7 @@ export const mapOrderEntityToModel = (order: OrderEntity): OrderModel => {
     total: parseFloat(order.total_price),
     scout: scout.trim(),
     den: den.trim(),
+    paymentMethod: order.payment_gateway_names?.[0] ?? 'Unknown',
     billingAddress,
     shippingAddress,
     lineItems,

@@ -11,24 +11,29 @@ const dens = ['Tiger', 'Wolf', 'Bear', 'Webelos'];
 
 export const orderEntityFactory = Factory.Sync.makeFactory<OrderEntity>({
   id: Factory.each(() =>
-    faker.number.int({ min: 1000000000000, max: 9999999999999 })
+    faker.number.int({ min: 1000000000000, max: 9999999999999 }),
   ) as unknown as number,
+  order_number: Factory.each(() =>
+    faker.number.int({ min: 1000000000000, max: 9999999999999 }),
+  ) as unknown as number,
+  payment_gateway_names: [],
   name: Factory.each(
-    () => `${faker.number.int({ min: 1000, max: 1300 })}`
+    () => `${faker.number.int({ min: 1000, max: 1300 })}`,
   ) as unknown as string,
   total_price: null,
   created_at: Factory.each(() =>
-    faker.date.recent().toISOString()
+    faker.date.recent().toISOString(),
   ) as unknown as string,
   line_items: Factory.each(() =>
-    lineItemEntityFactory.buildList(faker.number.int({ min: 1, max: 4 }))
+    lineItemEntityFactory.buildList(faker.number.int({ min: 1, max: 4 })),
   ) as unknown as LineItemEntity[],
+  note: 'Remember this note!',
   note_attributes: Factory.each((i) => [
     { name: 'Scout Den', value: dens[i % dens.length] },
     { name: 'Scout Name', value: faker.person.fullName() },
   ]) as unknown as Record<string, string>[],
   billing_address: Factory.each(() =>
-    addressEntityFactory.build()
+    addressEntityFactory.build(),
   ) as unknown as AddressEntity,
   shipping_address: {} as AddressEntity,
 } as OrderEntity)
@@ -39,7 +44,7 @@ export const orderEntityFactory = Factory.Sync.makeFactory<OrderEntity>({
         (total, lineItem) =>
           total +
           parseInt(lineItem.price as string) * (lineItem.quantity as number),
-        0
+        0,
       )
-      .toString()
+      .toString(),
   );

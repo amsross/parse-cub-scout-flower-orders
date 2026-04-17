@@ -28,5 +28,6 @@ export const mapOrderModelToRowModels = (order: OrderModel): RowModel[] => {
     quantity: lineItem.quantity,
     total: lineItem.price * lineItem.quantity,
     paymentMethod: paymentMethod,
+    notes: order.note,
   }));
 };

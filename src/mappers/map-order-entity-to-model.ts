@@ -46,6 +46,7 @@ export const mapOrderEntityToModel = (order: OrderEntity): OrderModel => {
     paymentMethod: order.payment_gateway_names?.[0] ?? 'Unknown',
     billingAddress,
     shippingAddress,
+    note: order.note ?? null,
     lineItems,
   };
 };

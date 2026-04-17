@@ -11,5 +11,6 @@ export type OrderModel = {
   paymentMethod: string;
   billingAddress: AddressModel;
   shippingAddress: AddressModel;
+  note: string | null;
   lineItems: LineItemModel[];
 };

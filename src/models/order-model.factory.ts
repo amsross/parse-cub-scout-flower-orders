@@ -19,28 +19,29 @@ const scoutsByDen = dens.reduce(
 
     return { ...acc, [den]: scouts };
   },
-  {} as Record<string, string[]>
+  {} as Record<string, string[]>,
 );
 
 export const orderModelFactory = Factory.Sync.makeFactory<OrderModel>({
   id: Factory.each(() =>
-    faker.number.int({ min: 1000000000000, max: 9999999999999 })
+    faker.number.int({ min: 1000000000000, max: 9999999999999 }),
   ) as unknown as number,
   name: Factory.each(
-    () => `${faker.number.int({ min: 1000, max: 1300 })}`
+    () => `${faker.number.int({ min: 1000, max: 1300 })}`,
   ) as unknown as string,
   date: Factory.each(() =>
-    faker.date.recent().toISOString()
+    faker.date.recent().toISOString(),
   ) as unknown as string,
   total: 0,
   scout: null as unknown as string,
   den: Factory.each((i) => dens[i % dens.length]) as unknown as string,
   billingAddress: Factory.each(() =>
-    addressModelFactory.build()
+    addressModelFactory.build(),
   ) as unknown as AddressModel,
   shippingAddress: {} as AddressModel,
+  note: 'Remember this note!',
   lineItems: Factory.each(() =>
-    lineItemModelFactory.buildList(3)
+    lineItemModelFactory.buildList(3),
   ) as unknown as LineItemModel[],
 } as OrderModel)
   .withDerivation('scout', (order) => {
@@ -52,6 +53,6 @@ export const orderModelFactory = Factory.Sync.makeFactory<OrderModel>({
   .withDerivation('total', (order) =>
     order.lineItems.reduce(
       (total: number, lineItem) => total + lineItem.price * lineItem.quantity,
-      0
-    )
+      0,
+    ),
   );

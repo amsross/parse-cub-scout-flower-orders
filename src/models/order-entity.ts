@@ -9,6 +9,7 @@ export type OrderEntity = Pick<
   | 'name'
   | 'total_price'
   | 'created_at'
+  | 'note'
   | 'note_attributes'
   | 'line_items'
   | 'billing_address'
